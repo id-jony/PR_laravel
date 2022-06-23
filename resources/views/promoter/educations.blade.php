@@ -1,7 +1,7 @@
   @extends('layouts.app')
   @section('content')
   <main class="flex-shrink-0 mb-4">
-    <div class="container-lg" style="padding: 0 32px;">
+    <div class="container-xl" style="padding: 0 32px;">
       <div class="row justify-content-center">
         <div class="col-12">
           <div class="row">

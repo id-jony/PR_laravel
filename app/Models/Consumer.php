@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Models\UsersTask;
 
 
 class Consumer extends Model
@@ -42,6 +41,7 @@ class Consumer extends Model
                 $promoter->increment('user_count');
                 $promoter->increment('bonus_count');
             }
+
         });
     }
 

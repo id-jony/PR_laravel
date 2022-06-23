@@ -35,7 +35,7 @@
                   d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
               </svg> -->
              
-                <span class="name">{{ $user->fio }}</span>
+                <span class="name">{{ $user->convertFio }}</span>
                 <span class="phone">{{ $user->short_phone }}</span>
               </div>
             </div>
@@ -70,7 +70,7 @@
     </div>
   </main>
 
-  <div class="container-lg">
+  <div class="container-xl">
     <div class="row justify-content-center">
       <section class="splide slider col-12 col-lg-12">
         <div class="splide__track">
@@ -84,17 +84,40 @@
                 <div class="col">
                   <div>
                     <span class="banner_icon">🎯</span>
-                    <span class="date">Ваш план <br> до {{ \Carbon\Carbon::parse($task->finish_date)->format('d/m/Y') }}</span>
+                    <span class="date">
+                      Ваш план <br> до {{ \Carbon\Carbon::parse($task->finish_date)->format('d/m/Y') }}
+                    </span>
                   </div>
                   <h2>{{ $task->title }}</h2>
                   <p>{{ $task->description }}</p>
                 </div>
                 <div class="col-5 d-flex justify-content-end">
-                  <div class="chart" id="graph" data-percent="{{ $task->count_task }}" data-finish="{{ $task->condition }}" data-size="440" data-line="32">
+                  
+                  <div class="chart" id="graph" 
+                  data-percent="
+                    @if($task->winner == 1)
+                      {{ $task->condition }}
+                    @else 
+                      {{ $task->count_task }} 
+                    @endif" 
+                  data-finish="{{ $task->condition }}" 
+                  data-size="440" 
+                  data-line="32">
                   </div>
+
                 </div>
               </div>
             </li>
+            
+            @if($task->winner == 1)
+            <script>
+              const circle_color = "#A5D322";
+            </script>
+            @else
+            <script>
+            const circle_color = "#214EC3";
+            </script>
+            @endif
 
             @elseif($task->category === 'top')
             <li class="splide__slide banner" style="background: {{ $task->background }}; box-shadow:0px 24px 32px -16px #BFCFE0;">
@@ -102,7 +125,9 @@
                 <div class="col">
                   <div>
                     <span class="banner_icon">🎯</span>
-                    <span class="date">Ваш план <br> до {{ \Carbon\Carbon::parse($task->finish_date)->format('d/m/Y') }}</span>
+                    <span class="date">
+                      Ваш план <br> до {{ \Carbon\Carbon::parse($task->finish_date)->format('d/m/Y') }}
+                    </span>
                   </div>
                   <h2>{{ $task->title }}</h2>
                   <p>{{ $task->description }}</p>
@@ -217,8 +242,59 @@
       </div>
     </div>
   </div>
+  
 
+  @foreach($notifications as $key => $notify)
+  <div class="modal fade" id="notify-{{ $notify->id }}" tabindex="-1" data-bs-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title modal-stars">{{ $notify->title }}</h5>
+        </div>
+        <div class="modal-body">
+          <p>{{ $notify->description }}</p>
+        </div>
+        <div class="modal-footer">
+          <form id="notify_form-{{ $notify->id }}" action="{{ route('notificationsajax', $notify->id)}}" notify_id="{{ $notify->id }}" method="GET">
+            @csrf
+          <input type="hidden" name="notify_id" value="{{ $notify->id }}">
+          <button type="submit"  class="btn btn-sm btn-primary">@lang('Закрыть')</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(function () {
+    $('#notify-{{ $notify->id }}').modal('show')
+    $('#notify_form-{{ $notify->id }}').click(function () {
+    let t = $(this), e = t.find('button')
+    $.ajax(t.attr('action'), {
+      method: t.attr('method'),
+      data: t.serialize(),
+      beforeSend: function () {
+        $('#notify-' + t.attr('notify_id')).modal('hide')
+      },
+      error: function (data) {
+        $("#error .lds-ellipsis").addClass("d-none")
+        $("#error .btn").removeClass("d-none")
+        $("#error .modal-title").html(t.attr('action'))
+        $("#error .modal-body p").html(data.responseJSON.msg || data.responseJSON.message)
+        e.prop('disabled', false)
+      },
+      success: function (data) {
 
+      },
+      complete: function () {
+      }
+    });
+    return false;
+  });
+    })
+  </script>
+  @endforeach
+
+  
   <script>
      var splide = new Splide('.slider', {
     perPage: 1
@@ -229,7 +305,7 @@
     // autoplay: true
     arrows: false
     , breakpoints: {
-      1200: {
+      1320: {
         perPage: 1
         , fixedWidth: '90%'
 

@@ -45,10 +45,10 @@ el.appendChild(span);
 el.appendChild(p);
 el.appendChild(canvas);
 
-drawCircle('D8D8D8', options.lineWidth, 100 / 100);
+drawCircle('#D8D8D8', options.lineWidth, 100 / 100);
 
 var positionX = 1;
-const speed = 12000;
+const speed = 1000;
 
   const animate = () => {
     const value = +options.percent;
@@ -56,10 +56,10 @@ const speed = 12000;
 
     const time = value / speed;
     if (data < value) {
-      drawCircle('214EC3', options.lineWidth, Math.ceil(data + time) / options.finish);
+      drawCircle(circle_color, options.lineWidth, Math.ceil(data + time) / options.finish);
 
       span.textContent = Math.ceil(data + time);
-      setTimeout(animate, 8);
+      setTimeout(animate, 40);
     } else {
       span.textContent = value;
     }

@@ -24,11 +24,11 @@
               @if ($loop->iteration == $level)<tr class="me">@else<tr>@endif
 
                 @if($loop->iteration == 1)
-                <th scope="row">🥇</th>
+                <th scope="row" style="font-size: 24px;">🥇</th>
                 @elseif($loop->iteration == 2)
-                <th scope="row">🥈</th>
+                <th scope="row" style="font-size: 24px;">🥈</th>
                 @elseif($loop->iteration == 3)
-                <th scope="row">🥉</th>
+                <th scope="row" style="font-size: 24px;">🥉</th>
                 @else
                 <th scope="row">{{ $loop->iteration }}</th>
                 @endif

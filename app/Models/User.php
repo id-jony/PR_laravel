@@ -40,6 +40,11 @@ class User extends Authenticatable
          return mb_substr($fio, 0, 1);
     }
 
+    public function getConvertFioAttribute()
+    {   
+         return mb_convert_case($this->fio, MB_CASE_TITLE, "UTF-8");
+    }
+    
     /**
      * The attributes that should be hidden for serialization.
      *

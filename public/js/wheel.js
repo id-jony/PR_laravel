@@ -1,4 +1,4 @@
-const link = 'http://127.0.0.1:8000/account/consumer/wheel/json/';
+const link = 'https://pr-crm.kz/account/consumer/wheel/json/';
 
 var getJSON = function (url, callback) {
   var xhr = new XMLHttpRequest();
@@ -52,7 +52,7 @@ getJSON(link, (err, data) => {
     // расставляем текст по секторам
     const createPrizeNodes = () => {
       // обрабатываем каждую подпись
-      prizes.forEach(({id, text, color, image, reaction }, i) => {
+      prizes.forEach(({ id, text, color, image, reaction }, i) => {
         // prizes.forEach(({ text, color, reaction }, i) => {
 
         // каждой из них назначаем свой угол поворота
@@ -77,10 +77,10 @@ getJSON(link, (err, data) => {
         `background: conic-gradient(
           from -90deg,
           ${prizes
-            // получаем цвет текущего сектора
-            .map(({ color }, i) => `${color} 0 ${(100 / prizes.length) * (prizes.length - i)}%`)
-            .reverse()
-          }
+          // получаем цвет текущего сектора
+          .map(({ color }, i) => `${color} 0 ${(100 / prizes.length) * (prizes.length - i)}%`)
+          .reverse()
+        }
         );
         
         `
@@ -123,7 +123,7 @@ getJSON(link, (err, data) => {
         // убираем анимацию язычка
         ticker.style.animation = "none";
         // и через 10 миллисекунд отменяем это, чтобы он вернулся в первоначальное положение
-        setTimeout(() => ticker.style.animation = null, 10);
+        // setTimeout(() => ticker.style.animation = null, 10);
         // после того, как язычок прошёл сектор - делаем его текущим
         currentSlice = slice;
       }
@@ -141,33 +141,31 @@ getJSON(link, (err, data) => {
 
       // console.log(image);
 
-      const link_ajax = 'http://127.0.0.1:8000/account/consumer/wheel/json/';
-
-      $.ajax(link_ajax, {
+      $.ajax(link, {
         method: 'POST',
-        data: {prize_id: select_id},
+        data: { prize_id: select_id },
         beforeSend: function () {
         },
-        error: function (data) {
-          // $("#error .lds-ellipsis").addClass("d-none")
-          // $("#error .btn").removeClass("d-none")
-          // $("#error .modal-title").html('Упс..Ошибка!')
-          // $("#error .modal-body p").html(data.responseJSON.msg || data.responseJSON.message)
-          // e.prop('disabled', false)
+        error: function () {
+          $("#error .lds-ellipsis").addClass("d-none")
+          $("#error .btn").removeClass("d-none")
+          $("#error .modal-title").html('Упс..Ошибка!')
+          $("#error .modal-body p").html('')
+          e.prop('disabled', false)
         },
-        success: function (data) {
+        success: function () {
+          $("#wheel .modal-title").html(wheel_title_success)
+          $("#wheel .modal-body").html('<p></p><img src="' + image + '" width="80px" alt="">')
+          $("#wheel .modal-body p").html(txt)
+          $('#wheel').modal('show')
         },
         complete: function () {
         }
       });
 
 
-        $("#error .modal-title").html(wheel_title_success)
-        $("#error .modal-body").html('<p></p><img src="'+ image +'" width="80px" alt="">')
-        $("#error .modal-body p").html(txt)
-        $("#error .modal-footer a").html(wheel_btn_exit)
-        $('#error').modal('show')
-     
+
+
 
     };
 

@@ -8,6 +8,7 @@ Route::group(['middleware' => 'guest'], function () {
       Route::group(['middleware' => 'ajax'], function () {
             Route::post('/login', 'App\Http\Controllers\LoginController@login')->name('login');
             Route::post('/forgpass', 'App\Http\Controllers\LoginController@forgpass')->name('forgpass');
+
       });
 });
 
@@ -20,6 +21,10 @@ Route::group(['middleware' => 'auth', 'prefix' => '/account'], function () {
       Route::get('/questions/{id}', 'App\Http\Controllers\AccountController@questions')->name('questions');
 
       Route::get('/questions/json/{id}', 'App\Http\Controllers\AccountController@questionsajax')->name('questionsajax');
+      
+      Route::group(['middleware' => 'ajax'], function () {
+            Route::get('/notify/json/{id}', 'App\Http\Controllers\AccountController@notificationsajax')->name('notificationsajax');
+      });
 
       Route::group(['prefix' => '/list', 'as' => 'modal.'], function () {
             Route::get('/posm', 'App\Http\Controllers\ModalController@showleaders')->name('leaders');

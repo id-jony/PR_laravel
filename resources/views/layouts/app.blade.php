@@ -25,8 +25,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
   <script src="/js/imask.js"></script>
   <script src="/js/splide.min.js"></script>
   <title>Pernod-Ricard</title>
@@ -40,7 +38,7 @@
   </div>
   @else
 
-  @if(Route::is('consumer.qest_view') || Route::is('consumer.wheel_view') || Route::is('presentations'))
+  @if(Route::is('consumer.qest_view') || Route::is('consumer.wheel_view') || Route::is('presentations') || Route::is('educations') || Route::is('questions'))
   <div class="header_account" style="z-index: 99;">
     <div class="container-lg">
       <div class="row">
@@ -78,6 +76,7 @@
   @include('layouts.modals.ajax')
   @include('layouts.modals.error')
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
   <script src="/js/status_circle.js"></script>
   <script src="/js/script.js"></script>
 

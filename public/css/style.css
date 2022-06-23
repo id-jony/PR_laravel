@@ -52,6 +52,12 @@
   --bs-body-bg: #fff;
 }
 
+.font-s-14, .font-s-14 ul, .font-s-14 li, .font-s-14 p {
+  font-size: 14px;
+  font-family: 'Roboto';
+  text-align: left !important;
+}
+
 :focus-visible {
   outline-style: none;
 }
@@ -359,6 +365,24 @@ h2 {
   right: 16px;
   top: 16px;
 }
+
+.modal-stars::before {
+  content: "";
+  position: relative;
+  float: left;
+  width: 100%;
+  height: 48px;
+  /* margin-top: 8px; */
+  margin-bottom: 32px;
+  background-image: url(../img/stars.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  transform: scale(1);
+  transition: all .2s ease-in-out;
+
+}
+
 
 .modal-title {
   margin-bottom: 0;
@@ -1067,14 +1091,14 @@ footer img {
   transition: all .2s ease-in-out;
 }
 
-.quiz a:hover {
+.quiz a.hover {
   color: #1B5E22;
   background: linear-gradient(180deg, #EFFFDE 0.11%, #A5E887 100%);
   transition: all .2s ease-in-out;
   transform: translate(0, 1px) scale(.99);
 }
 
-.quiz a:hover .radio {
+.quiz a.hover .radio {
   background: #4FAF48;
   border: 1px solid #7DC178;
   transition: all .2s ease-in-out;
@@ -1093,7 +1117,7 @@ footer img {
   transition: all .2s ease-in-out;
 }
 
-.quiz a:hover .radio::before {
+.quiz a.hover .radio::before {
   content: "";
   position: relative;
   float: left;
@@ -1431,6 +1455,7 @@ a.quest {
   border-radius: 50%;
   margin: 0;
   z-index: 9;
+  border: 12px solid rgb(17, 32, 77);
 
 }
 

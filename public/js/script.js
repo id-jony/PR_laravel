@@ -53,11 +53,11 @@ $(function () {
     $("#ajax-modal .lds-ellipsis").removeClass("d-none")
 
     const recipient = button.getAttribute('href')
-    $.get(recipient, function(t) {
+    $.get(recipient, function (t) {
       $("#ajax-modal .lds-ellipsis").addClass("d-none")
       modalBody.innerHTML = t
-		})
-});
+    })
+  });
 
 
   $('#login_form').submit(function () {
@@ -71,6 +71,7 @@ $(function () {
         $("#error .lds-ellipsis").removeClass("d-none")
         $("#error .btn").addClass("d-none")
         $("#error .modal-body p").html('')
+        // $('#error').attr('data-backdrop', 'static')
         $('#error').modal('show')
       },
       error: function (data) {
@@ -217,5 +218,9 @@ $(function () {
     });
     return false;
   });
+
+ 
+  
+
 
 });

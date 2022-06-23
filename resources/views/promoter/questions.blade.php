@@ -37,24 +37,8 @@
     </div>
   </main>
 
-    <div class="modal fade" id="error" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-md">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Упс.. Ошибка!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p>Вы ответили не верно, попробуйте еще раз.</p>
-          </div>
-          <div class="modal-footer">
-            <a href="#" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Назад</a>
-          </div>
-        </div>
-      </div>
-    </div>
 
-        <div class="modal fade" id="success" tabindex="-1" aria-hidden="true">
+        <div class="modal fade" id="success" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
           <div class="modal-dialog modal-md">
             <div class="modal-content">
               <div class="modal-header">
@@ -70,6 +54,6 @@
             </div>
           </div>
         </div>
-        <script>const link = 'http://127.0.0.1:8000/account/questions/json/{{ $id }}';</script>
+        <script>const link = '/account/questions/json/{{ $id }}';</script>
         <script src="/js/questions.js"></script>
   @endsection

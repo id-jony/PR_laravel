@@ -220,7 +220,7 @@ function Update()
 			btn.href = '#';
 			// p.className = "button hovers button_normal";
 			p.setAttribute("index", i);
-			btn.className = "button hovers button_normal";
+			btn.className = "button button_normal";
 			btn.setAttribute("index", i);
 			p.innerHTML = quiz.questions[quiz.current].answers[i].text;
 			
@@ -240,12 +240,11 @@ function Update()
 	else
 	{
 		if (quiz.score > 1) {
-			// location.assign('#')
 			$('#success').modal('show');
 
 		} else {
 			// location.assign('#')
-			$('#error').modal('show');
+			$('#error_q').modal('show');
 		}
 	}
 }
@@ -274,7 +273,7 @@ function Click(index)
 	//Делаем кнопки серыми
 	for(let i = 0; i < btns.length; i++)
 	{
-		btns[i].className = "button hovers button_passive";
+		btns[i].className = "button button_passive";
 	}
 
 	//Если это тест с правильными ответами, то мы подсвечиваем правильный ответ зелёным, а неправильный - красным
@@ -282,20 +281,23 @@ function Click(index)
 	{
 		if(correct >= 0)
 		{
-			btns[correct].className = "button hovers button_correct";
+			btns[correct].className = "button button_correct";
+			btns[index].className = "button hover button_correct";
+
 		}
 
 		if(index != correct)
 		{
+			$("#error .modal-body p").html('Вы ответили не верно, попробуйте еще раз.')
 			$('#error').modal('show');
 		}
 	}
 	else
 	{
 		//Иначе просто подсвечиваем зелёным ответ пользователя
-		btns[index].className = "button hovers button_correct";
+		btns[index].className = "button hover button_correct2";
 	}
 
 	//Ждём секунду и обновляем тест
-	setTimeout(Update, 100);
+	setTimeout(Update, 1000);
 }
